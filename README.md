@@ -60,5 +60,5 @@ Which worker gets which tasks?
 ## Screenshot
 
 See a running example with at least 3 concurrent process windows here:
-![Screenshot showing both emitting and listening terminals](./Laura_screenshot.png)
+![Screenshot showing both emitting and listening terminals](./V3_screenshot.png)
 

@@ -69,7 +69,10 @@ def send_message(host: str, queue_name: str, message: str):
 # If this is the program being run, then execute the code below
 if __name__ == "__main__":  
     # ask the user if they'd like to open the RabbitMQ Admin site
-    offer_rabbitmq_admin_site()
+    show_offer = False
+    if show_offer is True:
+        offer_rabbitmq_admin_site()
+
     # get the message from the command line
     # if no arguments are provided, use the default message
     # use the join method to convert the list of arguments into a string
@@ -78,7 +81,10 @@ if __name__ == "__main__":
     # send the message to the queue
     #send_message("localhost","task_queue2",message)
 
-    with open('tasks.csv', 'r', newline='') as csvfile:
+    #Prompt user for file name
+    filename = input("What is your file name? ")
+
+    with open(filename, 'r', newline='') as csvfile:
         for row in csvfile:
             send_message("localhost","task_queue2",row)
             #print(row)
