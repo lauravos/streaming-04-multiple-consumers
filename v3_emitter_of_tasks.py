@@ -1,7 +1,4 @@
 """
-Laura Gagnon-Vos
-05/24/2024
-
     This program sends a message to a queue on the RabbitMQ server.
     Make tasks harder/longer-running by adding dots at the end of the message.
 
@@ -13,19 +10,22 @@ Laura Gagnon-Vos
 import pika
 import sys
 import webbrowser
+import csv
+
 #import and setup logging
 from util_logger import setup_logger 
 logger, logname = setup_logger(__file__)
+
 
 def offer_rabbitmq_admin_site():
     """Offer to open the RabbitMQ Admin website"""
     ans = input("Would you like to monitor RabbitMQ queues? y or n ")
     #print()
-    
+
     if ans.lower() == "y":
         webbrowser.open_new("http://localhost:15672/#/queues")
         #print()
-
+        
 
 def send_message(host: str, queue_name: str, message: str):
     """
@@ -74,6 +74,11 @@ if __name__ == "__main__":
     # if no arguments are provided, use the default message
     # use the join method to convert the list of arguments into a string
     # join by the space character inside the quotes
-    message = " ".join(sys.argv[1:]) or "Second task....."
+    #message = " ".join(sys.argv[1:]) or "Second task....."
     # send the message to the queue
-    send_message("localhost","task_queue2",message)
+    #send_message("localhost","task_queue2",message)
+
+    with open('tasks.csv', 'r', newline='') as csvfile:
+        for row in csvfile:
+            send_message("localhost","task_queue2",row)
+            #print(row)
